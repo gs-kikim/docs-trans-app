@@ -1,7 +1,7 @@
 [![codecov](https://codecov.io/gh/ilyachch/md_docs-trans-app/branch/master/graph/badge.svg)](https://codecov.io/gh/ilyachch/md_docs-trans-app)
 # MD Translate
 
-CLI tool to translate `.md` files from English to Russian and back.
+CLI tool to translate `.md` files from English to Korea and back.
 
 Can use Yandex Translation API and Google Cloud translation.
 
@@ -20,7 +20,7 @@ You can store your default settings in `.json` file.
 Settings file content example:
 ```.json
 {
-  "source_lang": "ru",
+  "source_lang": "ko",
   "target_lang": "en",
   "service_name": "Google",
 }

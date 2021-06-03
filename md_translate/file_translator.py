@@ -10,6 +10,7 @@ if TYPE_CHECKING:
 
 class FileTranslator:
     default_open_mode: str = 'r+'
+    default_open_encoding: str = 'utf8'
 
     def __init__(self, settings: 'Settings', file_path: Path) -> None:
         self.settings = settings
@@ -18,7 +19,7 @@ class FileTranslator:
         self.code_block: bool = False
 
     def __enter__(self) -> 'FileTranslator':
-        self.__translating_file: IO = self.file_path.open(self.default_open_mode)
+        self.__translating_file: IO = self.file_path.open(self.default_open_mode, encoding=self.default_open_encoding)
         return self
 
     def __exit__(self, *args: Any, **kwargs: Any) -> None:

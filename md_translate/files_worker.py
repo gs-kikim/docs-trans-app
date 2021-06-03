@@ -8,6 +8,8 @@ if TYPE_CHECKING:
 
 
 class FilesWorker:
+    suffix = ['.md']
+
     def __init__(self, settings: 'Settings') -> None:
         self.settings = settings
         self.single_file: bool = False
@@ -16,7 +18,7 @@ class FilesWorker:
         self.__validate_folder()
 
     def __check_for_single_obj(self) -> None:
-        if self.object_to_process.is_file() and self.object_to_process.suffix == '.md':
+        if self.object_to_process.is_file() and self.object_to_process.suffix in self.suffix:
             self.single_file = True
         elif self.object_to_process.is_file():
             raise FileIsNotMarkdown(self.object_to_process)
@@ -34,7 +36,7 @@ class FilesWorker:
                 [
                     link
                     for link in self.object_to_process.iterdir()
-                    if link.suffix == '.md'
+                    if link.suffix in self.suffix
                 ]
             )
         if len(md_files_list) == 0:
