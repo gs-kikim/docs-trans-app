@@ -36,6 +36,10 @@ class Settings:
         return {}
 
     @property
+    def target_dir(self) -> Path:
+        return Path(self.__get_property_by_name('target_dir'))
+
+    @property
     def source_lang(self) -> str:
         return self.__get_property_by_name('source_lang')
 

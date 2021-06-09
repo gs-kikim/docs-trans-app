@@ -1,5 +1,6 @@
 from pathlib import Path
 from typing import TYPE_CHECKING, Iterable
+import shutil
 
 from md_translate.exceptions import FileIsNotMarkdown, ObjectNotFoundException
 
@@ -42,4 +43,21 @@ class FilesWorker:
         if len(files_list) == 0:
             raise FileNotFoundError('There are no MD or RST files found with provided path!')
 
+        return self.copy_files(files_list)
+
+    def copy_files(self, path: Iterable[Path]) -> Iterable[Path]:
+        files_list: list = []
+        target_dir = self.settings.target_dir
+
+        for src in path:
+            try:
+                dst = target_dir / src.name
+                shutil.copyfile(src, dst)
+            except Exception as err:
+                raise Exception("[ERROR] Failed to copy:"+dst+"\n"+err)
+            else:
+                files_list.append(dst)
+
         return files_list
+
+

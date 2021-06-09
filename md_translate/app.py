@@ -13,7 +13,7 @@ class App:
         logger.info(f'Processing: {", ".join([f.name for f in files_to_process])}')
         for file_path in files_to_process:
             with FileTranslator(self.settings, file_path) as processing_file:
-                processing_file.translate()
+                processing_file.erase_original_translate()
             logger.success('Processed: {file_path}'.format(file_path=file_path))
 
 
