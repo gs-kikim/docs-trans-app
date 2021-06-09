@@ -8,7 +8,7 @@ if TYPE_CHECKING:
 
 
 class FilesWorker:
-    suffix = ['.md']
+    suffix = ['.md', '.rst']
 
     def __init__(self, settings: 'Settings') -> None:
         self.settings = settings
@@ -27,19 +27,19 @@ class FilesWorker:
         if not self.object_to_process.exists():
             raise ObjectNotFoundException(self.object_to_process)
 
-    def get_md_files(self) -> Iterable[Path]:
-        md_files_list: list = []
+    def get_files(self) -> Iterable[Path]:
+        files_list: list = []
         if self.single_file:
-            md_files_list.append(self.object_to_process)
+            files_list.append(self.object_to_process)
         else:
-            md_files_list.extend(
+            files_list.extend(
                 [
                     link
                     for link in self.object_to_process.iterdir()
                     if link.suffix in self.suffix
                 ]
             )
-        if len(md_files_list) == 0:
-            raise FileNotFoundError('There are no MD files found with provided path!')
+        if len(files_list) == 0:
+            raise FileNotFoundError('There are no MD or RST files found with provided path!')
 
-        return md_files_list
+        return files_list

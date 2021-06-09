@@ -1,6 +1,8 @@
-Some string for translation
+# 안녕 테스트
 
-Уже переведенная строка
+## h2 테스트
+
+안녕하세요.
 
 ```python
 print('hello world')

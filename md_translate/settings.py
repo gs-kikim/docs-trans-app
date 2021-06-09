@@ -13,7 +13,7 @@ def get_cli_args() -> List[str]:
 
 
 class Settings:
-    APPLICATION_DESCRIPTION = 'Translates .md files in folder'
+    APPLICATION_DESCRIPTION = 'Translates .md or .rst files in folder'
     APPLICATION_EPILOG = 'See README.md for more information.'
 
     TRANSLATOR_API_KEY_FILENAME = '.md_translate_api_key'

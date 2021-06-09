@@ -9,7 +9,7 @@ class App:
         self.settings = Settings()
 
     def process(self) -> None:
-        files_to_process = FilesWorker(self.settings).get_md_files()
+        files_to_process = FilesWorker(self.settings).get_files()
         logger.info(f'Processing: {", ".join([f.name for f in files_to_process])}')
         for file_path in files_to_process:
             with FileTranslator(self.settings, file_path) as processing_file:

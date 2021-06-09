@@ -6,7 +6,7 @@ from md_translate.settings import Settings
 from md_translate import const
 from md_translate.exceptions import ConfigurationError
 
-TEST_PATH = 'tests/test_data/md_files_folder'
+TEST_PATH = Path.cwd() /'test_data'/'md_files_folder'
 
 
 class TestSettings(TestCase):
@@ -17,7 +17,7 @@ class TestSettings(TestCase):
         self.api_key = 'API_KEY'
         self.service_name = const.TRANSLATION_SERVICE_YANDEX
         self.source_lang = 'en'
-        self.target_lang = 'ru'
+        self.target_lang = 'ko'
 
     @patch('md_translate.settings.get_cli_args')
     def test_common_launch(self, cli_args_mock):
@@ -49,7 +49,7 @@ class TestSettings(TestCase):
         settings = Settings()
         self.assertEqual(settings.path, self.current_path)
         self.assertEqual(settings.service_name, const.TRANSLATION_SERVICE_GOOGLE)
-        self.assertEqual(settings.source_lang, 'ru')
+        self.assertEqual(settings.source_lang, 'ko')
         self.assertEqual(settings.target_lang, 'en')
 
     @patch('md_translate.settings.get_cli_args')

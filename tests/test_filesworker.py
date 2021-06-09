@@ -23,14 +23,14 @@ class TestFilesWorker:
     ])
     def test_folder_errors(self, path, err):
         with pytest.raises(err):
-            FilesWorker(SettingsMock(path)).get_md_files()
+            FilesWorker(SettingsMock(path)).get_files()
 
     def test_multiple_objects(self):
         file_worker_object = FilesWorker(SettingsMock('md_files_folder'))
         assert file_worker_object.single_file == False
-        assert sorted(file_worker_object.get_md_files()) == [Path(TEST_FIRST_FILE), Path(TEST_SECOND_FILE)]
+        assert sorted(file_worker_object.get_files()) == [Path(TEST_FIRST_FILE), Path(TEST_SECOND_FILE)]
 
     def test_single_object(self):
         file_worker_object = FilesWorker(SettingsMock('md_files_folder/first_file.md'))
         assert file_worker_object.single_file == True
-        assert file_worker_object.get_md_files() == [Path(TEST_FIRST_FILE)]
+        assert file_worker_object.get_files() == [Path(TEST_FIRST_FILE)]
