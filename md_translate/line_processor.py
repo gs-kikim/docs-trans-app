@@ -68,7 +68,13 @@ class Line:
 
     def _is_untranslated_paragraph(self) -> bool:
         try:
-            return detect(self._line) == self.settings.source_lang
+            line = self._line
+            one_quarter = int(len(line)/4)
+            src_lang = self.settings.source_lang
+            return (
+                    detect(line) == src_lang
+                    or detect(line[-one_quarter:]) == src_lang
+            )
         except LangDetectException:
             return False
 
