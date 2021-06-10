@@ -43,7 +43,7 @@ class FilesWorker:
         if len(files_list) == 0:
             raise FileNotFoundError('There are no MD or RST files found with provided path!')
 
-        return self.copy_files(files_list)
+        return files_list
 
     def copy_files(self, path: Iterable[Path]) -> Iterable[Path]:
         files_list: list = []
@@ -59,5 +59,17 @@ class FilesWorker:
                 files_list.append(dst)
 
         return files_list
+
+    def create_file(self, src: Path) -> Path:
+        target_dir = self.settings.target_dir / src.name
+
+        try:
+            open(file=target_dir, mode='x').close()
+        except FileExistsError:
+            pass
+        except Exception as err:
+            raise Exception("[ERROR] Failed to create:" + str(target_dir) + "\n" + err)
+
+        return target_dir
 
 

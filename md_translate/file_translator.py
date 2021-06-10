@@ -10,22 +10,26 @@ if TYPE_CHECKING:
 
 class FileTranslator:
     default_open_mode: str = 'r+'
-    default_open_encoding: str = 'utf8'
+    default_write_mode: str = 'w'
+    default_encoding: str = 'utf8'
 
-    def __init__(self, settings: 'Settings', file_path: Path) -> None:
+    def __init__(self, settings: 'Settings', file_path: Path, copy_path: Path) -> None:
         self.settings = settings
         self.file_path: Path = file_path
+        self.copy_path: Path = copy_path
         self.file_contents_with_translation: list = []
         self.code_block: bool = False
 
     def __enter__(self) -> 'FileTranslator':
-        self.__translating_file: IO = self.file_path.open(self.default_open_mode, encoding=self.default_open_encoding)
+        self.__r_translating_file: IO = self.file_path.open(self.default_open_mode, encoding=self.default_encoding)
+        self.__w_translating_file: IO = self.copy_path.open(self.default_write_mode, encoding=self.default_encoding)
         return self
 
     def __exit__(self, *args: Any, **kwargs: Any) -> None:
-        self.__translating_file.close()
+        self.__r_translating_file.close()
+        self.__w_translating_file.close()
 
-    def translate(self) -> None:
+    def leave_original_translate(self) -> None:
         lines = self._get_lines()
         for counter, _line in enumerate(lines):
             line = Line(self.settings, _line)
@@ -39,6 +43,8 @@ class FileTranslator:
                 logger.info(f'Processed {counter+1} lines')
         self._write_translated_data_to_file()
 
+    #  TODO 1. ** 강조 ** 한칸 띄어지는 문제, (**, >)
+    #  TODO 2. 반 정도가 영문이면 번역 안되는 문제
     def erase_original_translate(self) -> None:
         lines = self._get_lines()
         for counter, _line in enumerate(lines):
@@ -54,10 +60,10 @@ class FileTranslator:
         self._write_translated_data_to_file()
 
     def _get_lines(self) -> List[str]:
-        lines = self.__translating_file.readlines()
+        lines = self.__r_translating_file.readlines()
         logger.info(f'Got {len(lines)} lines to process')
         return lines
 
     def _write_translated_data_to_file(self) -> None:
-        self.__translating_file.seek(0)
-        self.__translating_file.writelines(self.file_contents_with_translation)
+        self.__w_translating_file.seek(0)
+        self.__w_translating_file.writelines(self.file_contents_with_translation)

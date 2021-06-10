@@ -12,7 +12,8 @@ class App:
         files_to_process = FilesWorker(self.settings).get_files()
         logger.info(f'Processing: {", ".join([f.name for f in files_to_process])}')
         for file_path in files_to_process:
-            with FileTranslator(self.settings, file_path) as processing_file:
+            copy_path = FilesWorker(self.settings).create_file(file_path)
+            with FileTranslator(self.settings, file_path, copy_path=copy_path) as processing_file:
                 processing_file.erase_original_translate()
             logger.success('Processed: {file_path}'.format(file_path=file_path))
 

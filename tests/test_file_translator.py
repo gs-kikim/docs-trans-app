@@ -35,7 +35,7 @@ class TestFileTranslator:
         get_translator_mock.return_value = translator_mock
         with FileTranslator(SettingsMock(), file_to_test_on) as file_translator:
             assert isinstance(file_translator, FileTranslator)
-            file_translator.translate()
+            file_translator.leave_original_translate()
         get_translator_mock.assert_called_with(SettingsMock.service_name)
         translator_mock.assert_called_with('Some string for translation\n', from_language='en', to_language='ko')
 
