@@ -18,11 +18,12 @@ $ pip install md-translate
 You can store your default settings in `.json` file.
 
 Settings file content example:
+
 ```.json
 {
   "source_lang": "ko",
   "target_lang": "en",
-  "service_name": "Google",
+  "service_name": "Google_v2",
 }
 ```
 
@@ -49,6 +50,9 @@ If you set config file, you can override any of settings by arguments
 * `-T TARGET_LANG, --target_lang TARGET_LANG`, Target language code
 
 ### Translation services:
-Now used `Yandex`, `Google`, `Bing`, `Deepl`
+Now used `Yandex`, `Google`, `Bing`, `Deepl`, `Google_v2`
 
-Some of them can be not working, try it and find the most suitable for you
+Some of them can be not working, try it and find the most suitable for you  
+
+`Google --> It's free, but the translation isn't good.`  
+`Google_v2 --> need to google Cloud Translation API key.` 

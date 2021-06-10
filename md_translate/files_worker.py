@@ -54,7 +54,7 @@ class FilesWorker:
                 dst = target_dir / src.name
                 shutil.copyfile(src, dst)
             except Exception as err:
-                raise Exception("[ERROR] Failed to copy:"+dst+"\n"+err)
+                raise Exception("[ERROR] Failed to copy:" + str(dst) + "\n" + err)
             else:
                 files_list.append(dst)
 

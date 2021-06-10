@@ -44,7 +44,7 @@ class FileTranslator:
         self._write_translated_data_to_file()
 
     #  TODO 1. ** 강조 ** 한칸 띄어지는 문제, (**, >)
-    #  TODO 2. 반 정도가 영문이면 번역 안되는 문제
+    #  TODO 3. 뒷 문장이 제대로 작성 안되는 문제 (<br>)
     def erase_original_translate(self) -> None:
         lines = self._get_lines()
         for counter, _line in enumerate(lines):
