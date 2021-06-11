@@ -56,14 +56,14 @@ class Line:
             not self._is_empty_line()
             and not self.is_code_block_border()
             and not self._is_single_code_line()
-            # and self._is_untranslated_paragraph()
+            and self._is_untranslated_paragraph()
         )
 
     def _translate(self) -> None:
         self._translated_line = self._translator(
             self._line,
             from_language=self.settings.source_lang,
-            to_language=self.settings.target_lang,
+            to_language=self.settings.target_lang
         )
 
     def _is_untranslated_paragraph(self) -> bool:
