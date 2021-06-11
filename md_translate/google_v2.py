@@ -1,5 +1,6 @@
 from google.cloud import translate_v2 as translate
 from google.cloud.translate_v2 import Client
+from html import unescape   # >= Python 3.5
 
 
 class GoogleV2:
@@ -9,7 +10,7 @@ class GoogleV2:
         translate_client: Client = translate.Client()
         result = translate_client.translate(src, target_language=to_language, source_language=from_language,
                                             model=model)
-        return result["translatedText"]
+        return unescape(result["translatedText"])
 
 
 _google_v2 = GoogleV2()
