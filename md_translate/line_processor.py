@@ -56,7 +56,7 @@ class Line:
             not self._is_empty_line()
             and not self.is_code_block_border()
             and not self._is_single_code_line()
-            and self._is_untranslated_paragraph()
+            # and self._is_untranslated_paragraph()
         )
 
     def _translate(self) -> None:
