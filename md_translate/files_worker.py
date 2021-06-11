@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 
 
 class FilesWorker:
-    suffix = ['.md', '.rst']
+    suffixes = ['.md', '.rst']
 
     def __init__(self, settings: 'Settings') -> None:
         self.settings = settings
@@ -19,7 +19,7 @@ class FilesWorker:
         self.__validate_folder()
 
     def __check_for_single_obj(self) -> None:
-        if self.object_to_process.is_file() and self.object_to_process.suffix in self.suffix:
+        if self.object_to_process.is_file() and self.object_to_process.suffix in self.suffixes:
             self.single_file = True
         elif self.object_to_process.is_file():
             raise FileIsNotMarkdown(self.object_to_process)
@@ -30,46 +30,28 @@ class FilesWorker:
 
     def get_files(self) -> Iterable[Path]:
         files_list: list = []
-        if self.single_file:
-            files_list.append(self.object_to_process)
-        else:
-            files_list.extend(
-                [
-                    link
-                    for link in self.object_to_process.iterdir()
-                    if link.suffix in self.suffix
-                ]
-            )
+        for _suffix in self.suffixes:
+            files_list.extend(self.object_to_process.glob('**/*'+_suffix))
         if len(files_list) == 0:
             raise FileNotFoundError('There are no MD or RST files found with provided path!')
 
         return files_list
 
-    def copy_files(self, path: Iterable[Path]) -> Iterable[Path]:
-        files_list: list = []
-        target_dir = self.settings.target_dir
-
-        for src in path:
-            try:
-                dst = target_dir / src.name
-                shutil.copyfile(src, dst)
-            except Exception as err:
-                raise Exception("[ERROR] Failed to copy:" + str(dst) + "\n" + err)
-            else:
-                files_list.append(dst)
-
-        return files_list
-
     def create_file(self, src: Path) -> Path:
-        target_dir = self.settings.target_dir / src.name
+        sub_path = src.parts[len(self.object_to_process.parts):-1]
+        target_dir = self.settings.target_dir / "\\".join(sub_path)
 
         try:
-            open(file=target_dir, mode='x').close()
+            if not target_dir.exists():
+                target_dir.mkdir(exist_ok=True)
+            target_file = target_dir / src.name
+            if not target_file.exists():
+                open(file=target_file, mode='x').close()
         except FileExistsError:
             pass
         except Exception as err:
             raise Exception("[ERROR] Failed to create:" + str(target_dir) + "\n" + err)
 
-        return target_dir
+        return target_file
 
 

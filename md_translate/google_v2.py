@@ -7,10 +7,12 @@ class GoogleV2:
 
     @staticmethod
     def translate_v2(src: str, from_language="ko", to_language="en", model="nmt"):
+        r = src
         translate_client: Client = translate.Client()
-        result = translate_client.translate(src, target_language=to_language, source_language=from_language,
-                                            model=model)
-        return unescape(result["translatedText"])
+        if translate_client.detect_language(src)['language'] == from_language:
+            r = unescape(translate_client.translate(src, target_language=to_language, source_language=from_language,
+                                                    model=model)["translatedText"])
+        return r
 
 
 _google_v2 = GoogleV2()
