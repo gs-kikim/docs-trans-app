@@ -20,12 +20,12 @@ You can store your default settings in `.json` file.
 Settings file content example:
 
 "service_name": "Google" --> It's free, but the translation isn't good.  
-"service_name": "Google_V2" --> need to google Cloud Translation API key 
+"service_name": "Google_v2" --> need to google Cloud Translation API key 
 ```.json
 {
   "source_lang": "ko",
   "target_lang": "en",
-  "service_name": "Google_V2",
+  "service_name": "Google_v2",
 }
 ```
 
