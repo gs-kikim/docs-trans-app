@@ -45,7 +45,8 @@ class FilesWorker:
             if not target_dir.exists():
                 target_dir.mkdir(exist_ok=True)
             target_file = target_dir / src.name
-            open(file=target_file, mode='x').close()
+            if not target_file.exists():
+                open(file=target_file, mode='x').close()
         except FileExistsError:
             pass
         except Exception as err:

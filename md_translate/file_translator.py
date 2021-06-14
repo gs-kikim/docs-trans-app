@@ -29,30 +29,15 @@ class FileTranslator:
         self.__r_translating_file.close()
         self.__w_translating_file.close()
 
-    def leave_original_translate(self) -> None:
+    def translate(self) -> None:
         lines = self._get_lines()
-        for counter, _line in enumerate(lines):
-            line = Line(self.settings, _line)
-            self.file_contents_with_translation.append(line.original)
-            self.code_block = (
-                not self.code_block if line.is_code_block_border() else self.code_block
-            )
-            if line.can_be_translated() and not self.code_block:
-                self.file_contents_with_translation.append('\n')
-                self.file_contents_with_translation.append(line.fixed)
-                logger.info(f'Processed {counter+1} lines')
-        self._write_translated_data_to_file()
-
-    def erase_original_translate(self) -> None:
-        lines = self._get_lines()
-        for counter, _line in enumerate(lines):
+        for _line in lines:
             line = Line(self.settings, _line)
             self.code_block = (
                 not self.code_block if line.is_code_block_border() else self.code_block
             )
             if line.can_be_translated() and not self.code_block:
                 self.file_contents_with_translation.append(line.fixed)
-                logger.info(f'Processed {counter+1} lines')
             else:
                 self.file_contents_with_translation.append(line.original)
         self._write_translated_data_to_file()
