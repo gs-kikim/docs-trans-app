@@ -1,9 +1,6 @@
 from typing import TYPE_CHECKING
 
-from langdetect import detect  # type: ignore
-from langdetect.lang_detect_exception import LangDetectException  # type: ignore
-
-from md_translate.utils import get_translator_by_service_name
+from md_translate.translator import get_translator_by_service_name, is_untranslated_paragraph
 
 if TYPE_CHECKING:
     from md_translate.settings import Settings
@@ -11,12 +8,14 @@ if TYPE_CHECKING:
 
 class Line:
     code_mark: str = '```'
+    line_makes = ['---', '===', '^^^', '::']
 
     new_line_symb = '\n'
 
     def __init__(self, settings: 'Settings', line: str) -> None:
         self.settings = settings
-        self._translator = get_translator_by_service_name(self.settings.service_name)
+        self._translator = get_translator_by_service_name(settings.service_name)
+        self._is_untranslated_paragraph: bool = is_untranslated_paragraph(settings.service_name, line, settings.source_lang)
         self._line: str = line
         self._translated_line = ''
 
@@ -54,14 +53,18 @@ class Line:
             not self._is_empty_line()
             and not self.is_code_block_border()
             and not self._is_single_code_line()
+            and self._is_untranslated_paragraph
         )
 
     def _translate(self) -> None:
-        self._translated_line = self._translator(
-            self._line,
-            from_language=self.settings.source_lang,
-            to_language=self.settings.target_lang
-        )
+        try:
+            self._translated_line = self._translator(
+                self._line,
+                from_language=self.settings.source_lang,
+                to_language=self.settings.target_lang
+            )
+        except TypeError:
+            pass
 
     def _is_single_code_line(self) -> bool:
         return (
