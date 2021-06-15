@@ -11,8 +11,6 @@ if TYPE_CHECKING:
 
 class Line:
     code_mark: str = '```'
-    list_item_mark = '* '
-    quote_item_mark = '> '
 
     new_line_symb = '\n'
 
@@ -56,7 +54,6 @@ class Line:
             not self._is_empty_line()
             and not self.is_code_block_border()
             and not self._is_single_code_line()
-            and self._is_untranslated_paragraph()
         )
 
     def _translate(self) -> None:
@@ -65,18 +62,6 @@ class Line:
             from_language=self.settings.source_lang,
             to_language=self.settings.target_lang
         )
-
-    def _is_untranslated_paragraph(self) -> bool:
-        try:
-            line = self._line
-            one_quarter = int(len(line)/4)
-            src_lang = self.settings.source_lang
-            return (
-                    detect(line) == src_lang
-                    or detect(line[-one_quarter:]) == src_lang
-            )
-        except LangDetectException:
-            return False
 
     def _is_single_code_line(self) -> bool:
         return (
