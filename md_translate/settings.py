@@ -69,11 +69,20 @@ class Settings:
         )
 
         arg_parser.add_argument(
-            'path',
+            '-path',
             help='Path to folder to process. If not set, uses current folder',
             nargs='?',
             default=Path.cwd(),
             type=Path,
+        )
+
+        arg_parser.add_argument(
+            '-d',
+            '--target_dir',
+            help='Path to folder to process. If not set, the target_dir in config.json is set',
+            nargs='?',
+            type=Path,
+            dest='target_dir'
         )
 
         arg_parser.add_argument(
