@@ -18,22 +18,23 @@ class SingletonInstance:
 
 
 class _GoogleV2(object):
+    _translate_client = None
 
-    def __init__(self):
-        self._translate_client = None
+    @classmethod
+    def _get_translate_client(cls) -> Client:
+        if not cls._translate_client:
+            cls._translate_client = translate.Client()
+        return cls._translate_client
 
-    def _get_translate_client(self) -> Client:
-        if not self._translate_client:
-            self._translate_client = translate.Client()
-        return self._translate_client
-
-    def translate_v2(self, src: str, from_language="ko", to_language="en", model="nmt"):
+    @classmethod
+    def translate_v2(cls, src: str, from_language="ko", to_language="en", model="nmt"):
         return unescape(
-            self._get_translate_client().translate(src, target_language=to_language, source_language=from_language,
+            cls._get_translate_client().translate(src, target_language=to_language, source_language=from_language,
                                                    model=model)["translatedText"])
 
-    def is_detected(self, src, from_language):
-        return True if self._get_translate_client().detect_language(src)['language'] == from_language else False
+    @classmethod
+    def is_detected(cls, src, from_language):
+        return True if cls._get_translate_client().detect_language(src)['language'] == from_language else False
 
 
 class GoogleV2(_GoogleV2, SingletonInstance):

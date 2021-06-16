@@ -18,6 +18,7 @@ def get_translator_by_service_name(service_name: str):
 
 def is_untranslated_paragraph(service_name: str, line: str, source_lang) -> bool:
     """
+    Call the language detect function of each translate API
     :rtype: bool
     """
     if service_name == const.TRANSLATION_SERVICE_GOOGLE_V2:

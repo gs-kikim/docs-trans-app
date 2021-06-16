@@ -15,7 +15,7 @@ class App:
             copy_path = FilesWorker(self.settings).create_file(file_path)
             with FileTranslator(self.settings, file_path, copy_path=copy_path) as processing_file:
                 processing_file.translate()
-            logger.success('Processed: {file_path}'.format(file_path=file_path))
+            logger.success('Processed: {file_path} --> {copy_path}'.format(file_path=file_path, copy_path=copy_path))
 
 
 def run() -> None:
