@@ -1,8 +1,8 @@
 import pytest
 
-from md_translate import const
-from md_translate.exceptions import UnknownServiceError
-from md_translate.translator import get_translator_by_service_name
+from docs_translate import const
+from docs_translate.exceptions import UnknownServiceError
+from docs_translate.translator import get_translator_by_service_name
 
 
 class TestUtils:

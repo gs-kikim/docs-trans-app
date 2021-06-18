@@ -1,7 +1,7 @@
-from md_translate.file_translator import FileTranslator
-from md_translate.files_worker import FilesWorker
-from md_translate.logs import logger
-from md_translate.settings import Settings
+from docs_translate.file_translator import FileTranslator
+from docs_translate.files_worker import FilesWorker
+from docs_translate.logs import logger
+from docs_translate.settings import Settings
 
 
 class App:

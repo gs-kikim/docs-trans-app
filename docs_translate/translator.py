@@ -3,10 +3,10 @@ from translators import apis  # type: ignore
 from langdetect import detect  # type: ignore
 from langdetect.lang_detect_exception import LangDetectException  # type: ignore
 
-from md_translate import const
-from md_translate.exceptions import UnknownServiceError
+from docs_translate import const
+from docs_translate.exceptions import UnknownServiceError
 
-from md_translate.google_v2 import is_detected
+from docs_translate.google_v2 import is_detected
 
 
 def get_translator_by_service_name(service_name: str):
@@ -16,7 +16,7 @@ def get_translator_by_service_name(service_name: str):
     return translator_class
 
 
-def is_untranslated_paragraph(service_name: str, line: str, source_lang) -> bool:
+def is_untranslated_paragraph(service_name: str, line: str, source_lang: object) -> bool:
     """
     Call the language detect function of each translate API
     :rtype: bool

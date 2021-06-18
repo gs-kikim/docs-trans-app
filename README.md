@@ -1,7 +1,6 @@
-[![codecov](https://codecov.io/gh/ilyachch/md_docs-trans-app/branch/master/graph/badge.svg)](https://codecov.io/gh/ilyachch/md_docs-trans-app)
-# MD Translate
+# Docs Translate
 
-CLI tool to translate `.md` files from English to Korea and back.
+CLI tool to translate `.md` and `.rst` files from English to Korea and back.
 
 Can use Yandex Translation API and Google Cloud translation.
 
@@ -10,7 +9,7 @@ Can use Yandex Translation API and Google Cloud translation.
 Install project:
 
 ```bash
-$ pip install md-translate
+$ pip install docs-translate
 ```
 
 ## Settings file
@@ -21,6 +20,7 @@ Settings file content example:
 
 ```.json
 {
+  "target_dir":"D:\\{language_convert_dir}",
   "source_lang": "ko",
   "target_lang": "en",
   "service_name": "Google_v2",
@@ -32,15 +32,16 @@ If you set config file, you should specify it with `-c CONFIG_PATH` argument!
 ## Usage
 
 ```bash
-$ md-translate [-h] [-c CONFIG_PATH]
-               [-s {Yandex,Google}] [-S] [-T]
-               [path]
+$ docs-translate [-h] [-c CONFIG_PATH]
+               [-s {Google,Google_v2}] [-S] [-T]
+               [-path {source_path}] [-d {target_dir}]
 ```
 
 If you set config file, you can override any of settings by arguments
 
 ### Positional arguments:
 * `path` Path to folder to process. If not set, uses current folder
+* `-d TARGET_DIR, --target_dir TARGET_DIR`, If not set, the target_dir in config.json is set
 
 ### Optional arguments:
 * `-h, --help`, show this help message and exit

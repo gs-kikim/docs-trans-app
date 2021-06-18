@@ -1,9 +1,9 @@
 from typing import TYPE_CHECKING
 
-from md_translate.translator import get_translator_by_service_name, is_untranslated_paragraph
+from docs_translate.translator import get_translator_by_service_name, is_untranslated_paragraph
 
 if TYPE_CHECKING:
-    from md_translate.settings import Settings
+    from docs_translate.settings import Settings
 
 
 class Line:

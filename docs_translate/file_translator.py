@@ -1,11 +1,11 @@
 from pathlib import Path
 from typing import IO, TYPE_CHECKING, Any, List
 
-from md_translate.line_processor import Line
-from md_translate.logs import logger
+from docs_translate.line_processor import Line
+from docs_translate.logs import logger
 
 if TYPE_CHECKING:
-    from md_translate.settings import Settings
+    from docs_translate.settings import Settings
 
 
 class FileTranslator:

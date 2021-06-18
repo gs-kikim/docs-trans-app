@@ -1,11 +1,11 @@
 [tool.poetry]
-name = "md_translate"
-version = "2.1.0"
-description = "CLI tool to translate markdown files"
-authors = ["Ilya Chichak <ilyachch@gmail.com>"]
+name = "docs_translate"
+version = "0.0.4"
+description = "CLI tool to translate markdown and reStructuredText files"
+authors = ["kyeongin kim <kikim@gmail.com>"]
 license = "MIT License"
 readme = "README.md"
-repository = "https://github.com/ilyachch/md_docs-trans-app"
+repository = "https://github.com/gs-kikim/docs-trans-app"
 classifiers = [
     "Development Status :: 4 - Beta",
     "Environment :: Console",
@@ -25,7 +25,7 @@ classifiers = [
 ]
 
 [tool.poetry.scripts]
-md-translate = 'md_translate.app:run'
+docs_translate = 'docs_translate.app:run'
 
 [tool.poetry.dependencies]
 python = "^3.6"
@@ -53,11 +53,11 @@ exclude = """
 
 [tool.coverage.run]
 source = [
-    'md_translate',
+    'docs_translate',
 ]
 omit = [
     'tests/*',
-    'md_translate/app.py'
+    'docs_translate/app.py'
 ]
 
 [tool.coverage.html]
@@ -73,7 +73,7 @@ exclude_lines = [
 ]
 [tool.isort]
 profile = "black"
-src_paths = ["md_translate"]
+src_paths = ["docs_translate"]
 
 [build-system]
 requires = ["poetry>=0.12"]

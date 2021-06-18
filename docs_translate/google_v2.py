@@ -30,7 +30,7 @@ class _GoogleV2(object):
     def translate_v2(cls, src: str, from_language="ko", to_language="en", model="nmt"):
         return unescape(
             cls._get_translate_client().translate(src, target_language=to_language, source_language=from_language,
-                                                   model=model)["translatedText"])
+                                                  model=model)["translatedText"])
 
     @classmethod
     def is_detected(cls, src, from_language):

@@ -3,10 +3,10 @@ from unittest import mock
 import pytest
 from langdetect.lang_detect_exception import LangDetectException
 
-from md_translate import const
-from md_translate.line_processor import Line
+from docs_translate import const
+from docs_translate.line_processor import Line
 
-detect_path = 'md_translate.line_processor.detect'
+detect_path = 'docs_translate.line_processor.detect'
 
 @pytest.fixture()
 def en_ru_settings():

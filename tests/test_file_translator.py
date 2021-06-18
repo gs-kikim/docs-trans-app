@@ -5,7 +5,7 @@ from unittest.mock import Mock
 
 import pytest
 
-from md_translate.file_translator import FileTranslator
+from docs_translate.file_translator import FileTranslator
 
 prefixture =Path.cwd() /'test_data'
 
@@ -22,7 +22,7 @@ def temp_test_file():
 
 
 class TestFileTranslator:
-    @mock.patch('md_translate.line_processor.get_translator_by_service_name')
+    @mock.patch('docs_translate.line_processor.get_translator_by_service_name')
     def test_file_translator(self, get_translator_mock, temp_test_file):
         class SettingsMock:
             service_name = 'Google'

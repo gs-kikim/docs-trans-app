@@ -1,5 +1,5 @@
 from translators import bing, deepl, google, yandex  # type: ignore
-from md_translate.google_v2 import google_v2
+from docs_translate.google_v2 import google_v2
 
 TRANSLATION_SERVICE_YANDEX = 'Yandex'
 TRANSLATION_SERVICE_GOOGLE = 'Google'

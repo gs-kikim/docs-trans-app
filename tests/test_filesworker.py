@@ -2,8 +2,8 @@ from pathlib import Path
 
 import pytest
 
-from md_translate.exceptions import ObjectNotFoundException, FileIsNotMarkdown
-from md_translate.files_worker import FilesWorker
+from docs_translate.exceptions import ObjectNotFoundException, FileIsNotMarkdown
+from docs_translate.files_worker import FilesWorker
 
 TEST_FIRST_FILE = 'tests/test_data/md_files_folder/first_file.md'
 TEST_SECOND_FILE = 'tests/test_data/md_files_folder/second_file.md'

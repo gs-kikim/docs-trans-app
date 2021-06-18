@@ -4,8 +4,8 @@ from argparse import ArgumentParser, Namespace
 from pathlib import Path
 from typing import Dict, List
 
-from md_translate import const
-from md_translate.exceptions import ConfigurationError
+from docs_translate import const
+from docs_translate.exceptions import ConfigurationError
 
 
 def get_cli_args() -> List[str]:

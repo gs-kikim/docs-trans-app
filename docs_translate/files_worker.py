@@ -2,10 +2,10 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Iterable
 import shutil
 
-from md_translate.exceptions import FileIsNotMarkdown, ObjectNotFoundException
+from docs_translate.exceptions import FileIsNotMarkdown, ObjectNotFoundException
 
 if TYPE_CHECKING:
-    from md_translate.settings import Settings
+    from docs_translate.settings import Settings
 
 
 class FilesWorker:
