@@ -11,6 +11,7 @@ class TestUtils:
         [const.TRANSLATION_SERVICE_GOOGLE, const.google],
         [const.TRANSLATION_SERVICE_BING, const.bing],
         [const.TRANSLATION_SERVICE_DEEPL, const.deepl],
+        [const.TRANSLATION_SERVICE_GOOGLE_V2, const.google_v2],
         ['bad service name', None],
     ])
     def test_get_translator_class(self, service_name, translator):

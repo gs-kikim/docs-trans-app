@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 
 
 class FileTranslator:
-    default_open_mode: str = 'r+'
+    default_open_mode: str = 'r'
     default_write_mode: str = 'w'
     default_encoding: str = 'utf8'
 
@@ -22,12 +22,10 @@ class FileTranslator:
 
     def __enter__(self) -> 'FileTranslator':
         self.__r_translating_file: IO = self.file_path.open(self.default_open_mode, encoding=self.default_encoding)
-        self.__w_translating_file: IO = self.copy_path.open(self.default_write_mode, encoding=self.default_encoding)
         return self
 
     def __exit__(self, *args: Any, **kwargs: Any) -> None:
         self.__r_translating_file.close()
-        self.__w_translating_file.close()
 
     def translate(self) -> None:
         lines = self._get_lines()
@@ -48,5 +46,5 @@ class FileTranslator:
         return lines
 
     def _write_translated_data_to_file(self) -> None:
-        self.__w_translating_file.seek(0)
-        self.__w_translating_file.writelines(self.file_contents_with_translation)
+        with open(self.copy_path, mode=self.default_write_mode, encoding=self.default_encoding) as writer:
+            writer.writelines(self.file_contents_with_translation)

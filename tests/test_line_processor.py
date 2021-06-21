@@ -6,7 +6,8 @@ from langdetect.lang_detect_exception import LangDetectException
 from docs_translate import const
 from docs_translate.line_processor import Line
 
-detect_path = 'docs_translate.line_processor.detect'
+detect_path = 'docs_translate.translator.detect'
+
 
 @pytest.fixture()
 def en_ru_settings():
@@ -14,7 +15,7 @@ def en_ru_settings():
         api_key = 'TEST_API_KEY'
         source_lang = 'en'
         target_lang = 'ru'
-        service_name = const.TRANSLATION_SERVICE_YANDEX
+        service_name = const.TRANSLATION_SERVICE_GOOGLE
 
     return MockedSettings()
 
@@ -109,4 +110,3 @@ class TestLineProcessorUniversal:
             assert line_ints.original == line
             assert line_ints.fixed == line
             assert line_ints.translated == line
-

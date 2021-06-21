@@ -6,13 +6,13 @@ from docs_translate.settings import Settings
 from docs_translate import const
 from docs_translate.exceptions import ConfigurationError
 
-TEST_PATH = Path.cwd() /'test_data'/'md_files_folder'
+TEST_PATH = Path.cwd() / 'test_data' / 'md_files_folder'
 
 
 class TestSettings(TestCase):
     def setUp(self) -> None:
-        self.config_file_path = Path('tests/test_data/config.json')
-        self.current_path = Path().cwd()
+        self.current_path = Path.cwd()
+        self.config_file_path = self.current_path / Path('test_data/config.json')
         self.test_path = Path(TEST_PATH)
         self.api_key = 'API_KEY'
         self.service_name = const.TRANSLATION_SERVICE_YANDEX
@@ -32,7 +32,7 @@ class TestSettings(TestCase):
 
     @patch('docs_translate.settings.get_cli_args')
     def test_lauch_with_path(self, cli_args_mock):
-        cli_args_mock.return_value = '{} -s {} -S {} -T {}'.format(
+        cli_args_mock.return_value = '-path {} -s {} -S {} -T {}'.format(
             self.test_path, self.service_name, self.source_lang, self.target_lang
         ).split(' ')
         settings = Settings()
