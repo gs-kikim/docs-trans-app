@@ -22,7 +22,12 @@ class FilesWorker:
     def get_files(self) -> Iterable[Path]:
         files_list: list = []
         for _suffix in self.suffixes:
-            files_list.extend(self.object_to_process.glob('**/*'+_suffix))
+            if self.object_to_process.is_dir():
+                files_list.extend(self.object_to_process.glob('**/*'+_suffix))
+            elif self.object_to_process.suffix == _suffix:
+                files_list.append(self.object_to_process)
+            else:
+                pass
         if len(files_list) == 0:
             raise DocsFileNotFoundError(self.object_to_process)
 
