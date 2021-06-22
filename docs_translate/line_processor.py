@@ -1,6 +1,7 @@
 from typing import TYPE_CHECKING
 
 from docs_translate.translator import get_translator_by_service_name, is_untranslated_paragraph
+from docs_translate.util import get_indentation
 
 if TYPE_CHECKING:
     from docs_translate.settings import Settings
@@ -8,7 +9,6 @@ if TYPE_CHECKING:
 
 class Line:
     code_mark: str = '```'
-    line_makes = ['---', '===', '^^^', '::']
 
     new_line_symb = '\n'
 
@@ -37,9 +37,12 @@ class Line:
 
     @property
     def fixed(self) -> str:
-        if self._line.endswith('\n') and not self.translated.endswith('\n'):
-            return ''.join([self.translated, '\n'])
-        return self.translated
+        translated = self.translated
+        if self._line.startswith(' '):
+            translated = ''.join([get_indentation(self._line), self.translated])
+        if self._line.endswith('\n') and not translated.endswith('\n'):
+            translated = ''.join([translated, '\n'])
+        return translated
 
     def is_code_block_border(self) -> bool:
         if self._line == self.code_mark:
