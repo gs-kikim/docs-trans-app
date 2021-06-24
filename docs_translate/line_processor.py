@@ -2,6 +2,8 @@ from typing import TYPE_CHECKING
 
 from docs_translate.translator import get_translator_by_service_name, is_untranslated_paragraph
 from docs_translate.util import get_indentation
+from docs_translate.logs import logger
+from docs_translate.reserved_word import ReservedWords
 
 if TYPE_CHECKING:
     from docs_translate.settings import Settings
@@ -12,8 +14,9 @@ class Line:
 
     new_line_symb = '\n'
 
-    def __init__(self, settings: 'Settings', line: str) -> None:
+    def __init__(self, settings: 'Settings', reserved_words: 'ReservedWords', line: str) -> None:
         self.settings = settings
+        self.reserved_words = reserved_words
         self._translator = get_translator_by_service_name(settings.service_name)
         self._is_untranslated_paragraph: bool = is_untranslated_paragraph(settings.service_name, line, settings.source_lang)
         self._line: str = line
@@ -62,11 +65,12 @@ class Line:
     def _translate(self) -> None:
         try:
             self._translated_line = self._translator(
-                self._line,
+                self.reserved_words.translate(self._line),
                 from_language=self.settings.source_lang,
                 to_language=self.settings.target_lang
             )
         except TypeError:
+            logger.warning('Not Working Translate Line: {line}'.format(line=self._line))
             pass
 
     def _is_single_code_line(self) -> bool:

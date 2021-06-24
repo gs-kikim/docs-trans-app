@@ -52,6 +52,10 @@ class Settings:
         return self.__get_property_by_name('service_name')
 
     @property
+    def reserved_words(self) -> str:
+        return Path(self.__get_property_by_name('reserved_words'))
+
+    @property
     def path(self) -> Path:
         return self.params.path
 

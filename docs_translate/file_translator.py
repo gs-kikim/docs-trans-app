@@ -3,6 +3,7 @@ from typing import IO, TYPE_CHECKING, Any, List
 
 from docs_translate.line_processor import Line
 from docs_translate.logs import logger
+from docs_translate.reserved_word import ReservedWords
 
 if TYPE_CHECKING:
     from docs_translate.settings import Settings
@@ -13,8 +14,9 @@ class FileTranslator:
     default_write_mode: str = 'w'
     default_encoding: str = 'utf8'
 
-    def __init__(self, settings: 'Settings', file_path: Path, copy_path: Path) -> None:
+    def __init__(self, settings: 'Settings', reserved_words: 'ReservedWords', file_path: Path, copy_path: Path) -> None:
         self.settings = settings
+        self.reserved_words = reserved_words
         self.file_path: Path = file_path
         self.copy_path: Path = copy_path
         self.file_contents_with_translation: list = []
@@ -30,7 +32,7 @@ class FileTranslator:
     def translate(self) -> None:
         lines = self._get_lines()
         for _line in lines:
-            line = Line(self.settings, _line)
+            line = Line(self.settings, self.reserved_words, _line)
             self.code_block = (
                 not self.code_block if line.is_code_block_border() else self.code_block
             )
