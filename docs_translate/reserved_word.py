@@ -8,9 +8,10 @@ class ReservedWords:
         with open(path, encoding='UTF8') as json_file:
             json_data = json.load(json_file)
         self.data = json_data
+        self.keys = list(self.data.keys())
+        self.compile = re.compile("("+")|(".join(self.keys)+")")
 
     def translate(self, line: str):
-        for key in sorted({word for word in self.data.keys() if word in line}, key=len, reverse=True):
-            regex = re.compile(key, re.S)
-            line = regex.sub(lambda m: m.group().replace(key, self.data[key], 1), line)
+        for group, idx in sorted([(m.group(), m.groups().index(m.group())) for m in self.compile.finditer(line)], key=lambda x: x[0], reverse=True):
+            line = re.sub(group, self.data[self.keys[idx]], line)
         return line

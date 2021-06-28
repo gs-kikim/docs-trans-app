@@ -20,7 +20,8 @@ Settings file content example:
 
 ```.json
 {
-  "target_dir":"D:\\{language_convert_dir}",
+  "target_dir":"{D:\\language_convert_folder}",
+  "reserved_words":"{D:\\reserved_words_json_file}",
   "source_lang": "ko",
   "target_lang": "en",
   "service_name": "Google_v2",
